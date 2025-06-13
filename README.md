@@ -37,7 +37,6 @@ Move back 2 spaces
 </div>
 
 ## <span style="color: #87d4f4; font-family: 'Fredoka One';">Technical Details</span>
-- Single HTML file with embedded CSS/JS
 - No dependencies
 - Responsive design
 - Free for educational use
