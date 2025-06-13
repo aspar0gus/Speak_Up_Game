@@ -312,14 +312,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Декоративные элементы */
+        /* Декоративные элементы - увеличены в 2 раза и замедлены */
         .decor {
             position: absolute;
             z-index: 0;
-            opacity: 0.15;
+            opacity: 0.98;
             pointer-events: none;
-            animation: float 6s infinite ease-in-out;
-            font-size: 30px;
+            animation: float 12s infinite ease-in-out;
+            font-size: 60px;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
         
         /* Модальное окно */
@@ -659,10 +664,9 @@
         <!-- Кнопка кубика -->
         <div class="dice-container">
             <button class="dice-btn" id="rollDice">
-                <span>Roll Dice</span> 
-                <span>🎲</span>
+                <span>Roll Dice</span>
             </button>
-            <div class="dice-result" id="diceResult"></div>
+            <div class="dice-result" id="diceResult">🎲</div>
         </div>
         
         <div class="board" id="board">
@@ -799,12 +803,12 @@
                 const starSymbols = ['✧', '✦'];
                 const colors = ['#ffbe9d', '#d7fbe9', '#c7e4ff', '#eaccfc', '#fffce1', '#ffccdd'];
                 
-                for (let i = 0; i < 20; i++) {
+                for (let i = 0; i < 30; i++) { // Изменено с 20 на 30 звезд
                     const star = document.createElement('div');
                     star.className = 'decor';
                     star.textContent = starSymbols[Math.floor(Math.random() * starSymbols.length)];
-                    star.style.fontSize = (20 + Math.random() * 20) + 'px';
-                    star.style.opacity = 0.1 + Math.random() * 0.1;
+                    star.style.fontSize = (40 + Math.random() * 20) + 'px';
+                    star.style.opacity = 0.98; // Изменено на 98% прозрачность
                     star.style.color = colors[Math.floor(Math.random() * colors.length)];
                     star.style.top = Math.random() * 100 + '%';
                     star.style.left = Math.random() * 100 + '%';
@@ -832,7 +836,7 @@
                 ARROW: {
                     class: 'arrow',
                     title: 'Move Forward',
-                    text: 'Great! Move forward 10 spaces. Keep up the good work!',
+                    text: 'Great! Move forward 3 spaces. Keep up the good work!',
                     icon: '➡️'
                 },
                 ARROW_BACK: {
@@ -1052,7 +1056,7 @@
             rollDiceBtn.addEventListener('click', function() {
                 // Анимация
                 diceResult.classList.add('dice-animation');
-                diceResult.textContent = '...';
+                diceResult.textContent = '🎲'; // Изменено с "..." на "🎲"
                 
                 // Задержка для эффекта броска
                 setTimeout(() => {
