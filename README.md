@@ -33,13 +33,5 @@ A digital board game that makes English practice fun for A1-A2 learners. Feature
 - No dependencies
 - Responsive design
 
-<div align="center" style="margin-top: 2em;">
-  <small>Free for educational use - <a href="LICENSE">MIT License</a></small>
-</div>
 
-<script>
-  // Optional: Auto-redirect after 3 seconds
-  setTimeout(function() {
-    window.location.href = "https://aspar0gus.github.io/Speak_Up_Game/";
-  }, 3000);
 </script>
