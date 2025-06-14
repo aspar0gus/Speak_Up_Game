@@ -252,12 +252,6 @@
             font-size: 0.95rem;
         }
         
-        .card-answer {
-            font-size: 0.85rem;
-            color: #666;
-            font-style: italic;
-        }
-        
         /* Кнопка кубика */
         .dice-container {
             margin: 15px 0;
@@ -684,28 +678,53 @@
         <div class="cards-container">
             <h3 class="cards-title">Current Challenge</h3>
             <div class="card" id="card1">
-                <div class="card-question">Name 5 classroom objects in English.</div>
-                <div class="card-answer">Example: desk, chair, board, window, book</div>
+                <div class="card-question">What do you eat for breakfast? What is your favourite food?</div>
             </div>
             <div class="card" id="card2">
-                <div class="card-question">Tell about your day in the past tense.</div>
-                <div class="card-answer">Example: I woke up at 7, had breakfast, went to school...</div>
+                <div class="card-question">Name 3 things you can buy at the supermarket.</div>
             </div>
             <div class="card" id="card3">
-                <div class="card-question">Describe your best friend (3 sentences).</div>
-                <div class="card-answer">Example: My best friend is... He/she has... We like to...</div>
+                <div class="card-question">What clothes are you wearing today? What color are they?</div>
             </div>
             <div class="card" id="card4">
-                <div class="card-question">Name 5 animals and the sounds they make.</div>
-                <div class="card-answer">Example: cat - meow, dog - woof, cow - moo, duck - quack, lion - roar</div>
+                <div class="card-question">What clothes do you wear at the beach?</div>
             </div>
             <div class="card" id="card5">
-                <div class="card-question">What do you usually do on weekends? (use Present Simple)</div>
-                <div class="card-answer">Example: On weekends I usually... I often... Sometimes I...</div>
+                <div class="card-question">What's your favourite animal?</div>
             </div>
             <div class="card" id="card6">
-                <div class="card-question">Sing a verse of an English song.</div>
-                <div class="card-answer">Example: Twinkle, twinkle, little star... or other popular song</div>
+                <div class="card-question">Name 5 fruits.</div>
+            </div>
+            <div class="card" id="card7">
+                <div class="card-question">Name 5 things you can see right now.</div>
+            </div>
+            <div class="card" id="card8">
+                <div class="card-question">Describe your best friend. Is he/she kind/smart/beautiful?</div>
+            </div>
+            <div class="card" id="card9">
+                <div class="card-question">What do you usually do in your free time?</div>
+            </div>
+            <div class="card" id="card10">
+                <div class="card-question">In which room of the house can we cook food?</div>
+            </div>
+            <div class="card" id="card11">
+                <div class="card-question">In which room of the house can we brush our teeth?</div>
+            </div>
+            <div class="card" id="card12">
+                <div class="card-question">In which room of the house can we sleep?</div>
+            </div>
+            <!-- Challenge Cards -->
+            <div class="card" id="challenge1">
+                <div class="card-question">The first student in your team searches for an object that would start with A, then with B, C, D, E...</div>
+            </div>
+            <div class="card" id="challenge2">
+                <div class="card-question">Touch your nose!</div>
+            </div>
+            <div class="card" id="challenge3">
+                <div class="card-question">Play snowball: The first student says their name, the next says the name of the first student and their name...</div>
+            </div>
+            <div class="card" id="challenge4">
+                <div class="card-question">Play broken phone with your team. The first student whispers a word to the next, then next... The last person says what they heard out loud.</div>
             </div>
         </div>
     </div>
@@ -803,12 +822,12 @@
                 const starSymbols = ['✧', '✦'];
                 const colors = ['#ffbe9d', '#d7fbe9', '#c7e4ff', '#eaccfc', '#fffce1', '#ffccdd'];
                 
-                for (let i = 0; i < 30; i++) { // Изменено с 20 на 30 звезд
+                for (let i = 0; i < 30; i++) {
                     const star = document.createElement('div');
                     star.className = 'decor';
                     star.textContent = starSymbols[Math.floor(Math.random() * starSymbols.length)];
                     star.style.fontSize = (40 + Math.random() * 20) + 'px';
-                    star.style.opacity = 0.98; // Изменено на 98% прозрачность
+                    star.style.opacity = 0.98;
                     star.style.color = colors[Math.floor(Math.random() * colors.length)];
                     star.style.top = Math.random() * 100 + '%';
                     star.style.left = Math.random() * 100 + '%';
@@ -851,41 +870,8 @@
                     text: 'Complete a special English challenge! Think outside the box!',
                     icon: '⭐️'
                 },
-                STAR1: {
-                    class: 'star1',
-                    title: 'Special Challenge',
-                    text: 'Complete a special English challenge! Think outside the box!',
-                    icon: '⭐️'
-                },
-                STAR2: {
-                    class: 'star2',
-                    title: 'Special Challenge',
-                    text: 'Complete a special English challenge! Think outside the box!',
-                    icon: '⭐️'
-                },
-                STAR3: {
-                    class: 'star3',
-                    title: 'Special Challenge',
-                    text: 'Complete a special English challenge! Think outside the box!',
-                    icon: '⭐️'
-                },
-                STAR4: {
-                    class: 'star4',
-                    title: 'Special Challenge',
-                    text: 'Complete a special English challenge! Think outside the box!',
-                    icon: '⭐️'
-                },
-                STAR5: {
-                    class: 'star5',
-                    title: 'Special Challenge',
-                    text: 'Complete a special English challenge! Think outside the box!',
-                    icon: '⭐️'
-                },
-                STAR6: {
-                    class: 'star6',
-                    title: 'Special Challenge',
-                    text: 'Complete a special English challenge! Think outside the box!',
-                    icon: '⭐️'
+               
+             
                 }
             };
             
@@ -959,6 +945,26 @@
                 const arrowBackCells = [];
                 const starCells = [];
                 
+                // Ensure we have exactly 4 challenge (star) cells
+                const challengeCellIndices = [];
+                while (challengeCellIndices.length < 4) {
+                    const randomIndex = Math.floor(Math.random() * availableCells.length);
+                    const cellIndex = availableCells[randomIndex];
+                    if (!specialCells[cellIndex] && !hasTooManySpecialNeighbors(cellIndex, specialCells)) {
+                        challengeCellIndices.push(cellIndex);
+                        availableCells.splice(randomIndex, 1);
+                    }
+                }
+                
+                // Add challenge cells
+                challengeCellIndices.forEach(index => {
+                    const starTypes = ['star1', 'star2', 'star3', 'star4'];
+                    const randomStarType = starTypes[challengeCellIndices.indexOf(index) % starTypes.length];
+                    specialCells[index] = CELL_TYPES[randomStarType.toUpperCase()];
+                    starCells.push(index);
+                });
+                
+                // Add other special cells
                 for (const cell of availableCells) {
                     // Проверяем ограничения
                     if (hasTooManySpecialNeighbors(cell, specialCells)) continue;
@@ -976,12 +982,6 @@
                     } else if (arrowBackCells.length < 8 && Math.random() < 0.2) {
                         specialCells[cell] = CELL_TYPES.ARROW_BACK;
                         arrowBackCells.push(cell);
-                    } else if (starCells.length < 8 && Math.random() < 0.25) {
-                        // Распределяем звезды разных типов
-                        const starTypes = ['star1', 'star2', 'star3', 'star4', 'star5', 'star6'];
-                        const randomStarType = starTypes[Math.floor(Math.random() * starTypes.length)];
-                        specialCells[cell] = CELL_TYPES[randomStarType.toUpperCase()];
-                        starCells.push(cell);
                     }
                 }
                 
@@ -1048,15 +1048,32 @@
             // Показать случайную карточку
             function showRandomCard() {
                 cards.forEach(card => card.classList.remove('active'));
-                const randomIndex = Math.floor(Math.random() * cards.length);
-                cards[randomIndex].classList.add('active');
+                
+                // Determine if we landed on a question or challenge cell
+                const activeCell = document.querySelector('.cell:hover');
+                let cardType = 'question';
+                if (activeCell && activeCell.classList.contains('star')) {
+                    cardType = 'challenge';
+                }
+                
+                // Filter cards based on type
+                const eligibleCards = Array.from(cards).filter(card => {
+                    if (cardType === 'challenge') {
+                        return card.id.startsWith('challenge');
+                    } else {
+                        return !card.id.startsWith('challenge');
+                    }
+                });
+                
+                const randomIndex = Math.floor(Math.random() * eligibleCards.length);
+                eligibleCards[randomIndex].classList.add('active');
             }
             
             // Функция броска кубика
             rollDiceBtn.addEventListener('click', function() {
                 // Анимация
                 diceResult.classList.add('dice-animation');
-                diceResult.textContent = '🎲'; // Изменено с "..." на "🎲"
+                diceResult.textContent = '🎲';
                 
                 // Задержка для эффекта броска
                 setTimeout(() => {
