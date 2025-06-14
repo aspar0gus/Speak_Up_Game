@@ -135,7 +135,7 @@
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
         }
         
-       
+        /* Типы клеток */
         .start {
             background-color: #ffbe9d;
             color: #333;
@@ -191,7 +191,7 @@
             font-size: 1.4rem;
         }
         
-       
+        /* Карточки вопросов */
         .cards-container {
             margin-top: 20px;
             background: white;
@@ -247,7 +247,7 @@
             font-size: 0.95rem;
         }
         
-       
+        /* Кнопка кубика */
         .dice-container {
             margin: 15px 0;
             text-align: center;
@@ -301,7 +301,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        
+        /* Декоративные элементы - увеличены в 2 раза и замедлены */
         .decor {
             position: absolute;
             z-index: 0;
@@ -316,7 +316,7 @@
             50% { transform: translateY(-20px) rotate(5deg); }
         }
         
-      
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -467,7 +467,7 @@
             transform: scale(1.1);
         }
         
-        
+        /* Add team modal */
         .add-team-modal {
             display: none;
             position: fixed;
@@ -531,7 +531,7 @@
             font-weight: 600;
         }
         
-       
+        /* Player tokens on board - уменьшены в 2 раза */
         .player-token {
             position: absolute;
             width: 36px;
@@ -551,7 +551,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
- 
+        /* Кнопка правил в правом верхнем углу */
         #rulesButton {
             position: fixed;
             top: 20px;
@@ -620,17 +620,17 @@
     </style>
 </head>
 <body>
- 
+    <!-- Кнопка правил в правом верхнем углу -->
     <div id="rulesButton">?</div>
     
-   
+    <!-- Декоративные звезды будут сгенерированы JavaScript -->
     <div id="starsContainer"></div>
     
     <div class="game-container">
         <h1>SPEAK UP!</h1>
         <p class="subtitle">An adventure for young English language learners (A1-A2)</p>
         
-      
+        <!-- Кнопка кубика -->
         <div class="dice-container">
             <button class="dice-btn" id="rollDice">
                 <span>Roll Dice</span>
@@ -639,7 +639,7 @@
         </div>
         
         <div class="board" id="board">
-    
+            <!-- Игровое поле будет сгенерировано JavaScript -->
         </div>
         
         <div class="teams-panel">
@@ -780,7 +780,7 @@
                 'https://i.pinimg.com/736x/b3/00/9f/b3009f2a04993d8886e606d7bf03bce0.jpg'
             ];
             
-           
+            // Создаем декоративные звезды со случайными позициями
             function createStars() {
                 const starSymbols = ['✧', '✦'];
                 const colors = ['#ffbe9d', '#d7fbe9', '#c7e4ff', '#eaccfc', '#fffce1', '#ffccdd'];
@@ -801,7 +801,7 @@
             
             createStars();
             
-           
+            // Конфигурация клеток
             const CELL_TYPES = {
                 QUESTION: {
                     class: 'question',
@@ -835,12 +835,12 @@
                 }
             };
             
-       
+            // Создаем игровое поле (9x16 = 144 клетки)
             const totalCells = 144;
             const boardWidth = 16;
             const boardHeight = 9;
             
-    
+            // Функция для проверки, что рядом не слишком много специальных клеток
             function hasTooManySpecialNeighbors(index, specialCells) {
                 const directions = [-1, 1, -boardWidth, boardWidth];
                 let specialCount = 0;
@@ -859,7 +859,7 @@
                 return false;
             }
             
-           
+            // Функция для проверки, что рядом есть хотя бы одна специальная клетка
             function hasAtLeastOneSpecialNeighbor(index, specialCells) {
                 const directions = [-1, 1, -boardWidth, boardWidth];
                 
@@ -876,7 +876,7 @@
                 return false;
             }
             
-        
+            // Функция для случайного распределения специальных клеток с учетом ограничений
             function getRandomSpecialCells() {
                 const specialCells = {
                     0: { 
@@ -889,23 +889,23 @@
                     }
                 };
                 
-                
+                // Создаем массив всех возможных клеток (исключая старт и финиш)
                 const availableCells = [];
                 for (let i = 1; i < totalCells - 1; i++) {
                     availableCells.push(i);
                 }
                 
-           
+                // Перемешиваем массив
                 availableCells.sort(() => Math.random() - 0.5);
                 
-            
+                // Распределяем специальные клетки с учетом ограничений
                 const questionCells = [];
                 const skipCells = [];
                 const arrowCells = [];
                 const arrowBackCells = [];
                 const starCells = [];
                 
-            
+                // Ensure we have exactly 5 challenge (star) cells
                 const challengeCellIndices = [];
                 while (challengeCellIndices.length < 5) {
                     const randomIndex = Math.floor(Math.random() * availableCells.length);
@@ -916,28 +916,28 @@
                     }
                 }
                 
-               
+                // Add challenge cells
                 challengeCellIndices.forEach(index => {
                     specialCells[index] = CELL_TYPES.STAR;
                     starCells.push(index);
                 });
                 
-                
+                // Add other special cells with exactly 10 of each type
                 for (const cell of availableCells) {
-                   
+                    // Проверяем ограничения
                     if (hasTooManySpecialNeighbors(cell, specialCells)) continue;
                     
                     // Определяем тип клетки с учетом максимального количества
-                    if (questionCells.length < 9 && Math.random() < 0.5) {
+                    if (questionCells.length < 10 && Math.random() < 0.5) {
                         specialCells[cell] = CELL_TYPES.QUESTION;
                         questionCells.push(cell);
-                    } else if (skipCells.length < 18 && Math.random() < 0.3) {
+                    } else if (skipCells.length < 10 && Math.random() < 0.3) {
                         specialCells[cell] = CELL_TYPES.SKIP;
                         skipCells.push(cell);
-                    } else if (arrowCells.length < 15 && Math.random() < 0.2) {
+                    } else if (arrowCells.length < 10 && Math.random() < 0.2) {
                         specialCells[cell] = CELL_TYPES.ARROW;
                         arrowCells.push(cell);
-                    } else if (arrowBackCells.length < 15 && Math.random() < 0.2) {
+                    } else if (arrowBackCells.length < 10 && Math.random() < 0.2) {
                         specialCells[cell] = CELL_TYPES.ARROW_BACK;
                         arrowBackCells.push(cell);
                     }
@@ -948,10 +948,10 @@
                     if (!specialCells[i] && !hasAtLeastOneSpecialNeighbor(i, specialCells)) {
                         // Добавляем случайную специальную клетку (только если не превышен лимит)
                         const types = [];
-                        if (questionCells.length < 9) types.push(CELL_TYPES.QUESTION);
-                        if (skipCells.length < 18) types.push(CELL_TYPES.SKIP);
-                        if (arrowCells.length < 15) types.push(CELL_TYPES.ARROW);
-                        if (arrowBackCells.length < 15) types.push(CELL_TYPES.ARROW_BACK);
+                        if (questionCells.length < 10) types.push(CELL_TYPES.QUESTION);
+                        if (skipCells.length < 10) types.push(CELL_TYPES.SKIP);
+                        if (arrowCells.length < 10) types.push(CELL_TYPES.ARROW);
+                        if (arrowBackCells.length < 10) types.push(CELL_TYPES.ARROW_BACK);
                         if (starCells.length < 5) types.push(CELL_TYPES.STAR);
                         
                         if (types.length > 0) {
@@ -978,7 +978,7 @@
             
             const specialCells = getRandomSpecialCells();
             
-           
+            // Генерация клеток
             for (let i = 0; i < totalCells; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
