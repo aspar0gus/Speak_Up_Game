@@ -905,71 +905,58 @@
                 const arrowBackCells = [];
                 const starCells = [];
                 
-                // Ensure we have exactly 5 challenge (star) cells
-                const challengeCellIndices = [];
-                while (challengeCellIndices.length < 5) {
+                // Add exactly 5 star cells
+                while (starCells.length < 5) {
                     const randomIndex = Math.floor(Math.random() * availableCells.length);
                     const cellIndex = availableCells[randomIndex];
                     if (!specialCells[cellIndex] && !hasTooManySpecialNeighbors(cellIndex, specialCells)) {
-                        challengeCellIndices.push(cellIndex);
+                        specialCells[cellIndex] = CELL_TYPES.STAR;
+                        starCells.push(cellIndex);
                         availableCells.splice(randomIndex, 1);
                     }
                 }
                 
-                // Add challenge cells
-                challengeCellIndices.forEach(index => {
-                    specialCells[index] = CELL_TYPES.STAR;
-                    starCells.push(index);
-                });
-                
-                // Add other special cells with exactly 10 of each type
-                for (const cell of availableCells) {
-                    // Проверяем ограничения
-                    if (hasTooManySpecialNeighbors(cell, specialCells)) continue;
-                    
-                    // Определяем тип клетки с учетом максимального количества
-                    if (questionCells.length < 10 && Math.random() < 0.5) {
-                        specialCells[cell] = CELL_TYPES.QUESTION;
-                        questionCells.push(cell);
-                    } else if (skipCells.length < 10 && Math.random() < 0.3) {
-                        specialCells[cell] = CELL_TYPES.SKIP;
-                        skipCells.push(cell);
-                    } else if (arrowCells.length < 10 && Math.random() < 0.2) {
-                        specialCells[cell] = CELL_TYPES.ARROW;
-                        arrowCells.push(cell);
-                    } else if (arrowBackCells.length < 10 && Math.random() < 0.2) {
-                        specialCells[cell] = CELL_TYPES.ARROW_BACK;
-                        arrowBackCells.push(cell);
+                // Add exactly 10 question cells
+                while (questionCells.length < 10) {
+                    const randomIndex = Math.floor(Math.random() * availableCells.length);
+                    const cellIndex = availableCells[randomIndex];
+                    if (!specialCells[cellIndex] && !hasTooManySpecialNeighbors(cellIndex, specialCells)) {
+                        specialCells[cellIndex] = CELL_TYPES.QUESTION;
+                        questionCells.push(cellIndex);
+                        availableCells.splice(randomIndex, 1);
                     }
                 }
                 
-                // Убедимся, что у каждой клетки есть хотя бы одна специальная соседняя
-                for (let i = 1; i < totalCells - 1; i++) {
-                    if (!specialCells[i] && !hasAtLeastOneSpecialNeighbor(i, specialCells)) {
-                        // Добавляем случайную специальную клетку (только если не превышен лимит)
-                        const types = [];
-                        if (questionCells.length < 10) types.push(CELL_TYPES.QUESTION);
-                        if (skipCells.length < 10) types.push(CELL_TYPES.SKIP);
-                        if (arrowCells.length < 10) types.push(CELL_TYPES.ARROW);
-                        if (arrowBackCells.length < 10) types.push(CELL_TYPES.ARROW_BACK);
-                        if (starCells.length < 5) types.push(CELL_TYPES.STAR);
-                        
-                        if (types.length > 0) {
-                            const randomType = types[Math.floor(Math.random() * types.length)];
-                            specialCells[i] = randomType;
-                            
-                            if (randomType === CELL_TYPES.QUESTION) {
-                                questionCells.push(i);
-                            } else if (randomType === CELL_TYPES.SKIP) {
-                                skipCells.push(i);
-                            } else if (randomType === CELL_TYPES.ARROW) {
-                                arrowCells.push(i);
-                            } else if (randomType === CELL_TYPES.ARROW_BACK) {
-                                arrowBackCells.push(i);
-                            } else if (randomType === CELL_TYPES.STAR) {
-                                starCells.push(i);
-                            }
-                        }
+                // Add exactly 15 skip cells
+                while (skipCells.length < 15) {
+                    const randomIndex = Math.floor(Math.random() * availableCells.length);
+                    const cellIndex = availableCells[randomIndex];
+                    if (!specialCells[cellIndex] && !hasTooManySpecialNeighbors(cellIndex, specialCells)) {
+                        specialCells[cellIndex] = CELL_TYPES.SKIP;
+                        skipCells.push(cellIndex);
+                        availableCells.splice(randomIndex, 1);
+                    }
+                }
+                
+                // Add exactly 15 arrow cells
+                while (arrowCells.length < 15) {
+                    const randomIndex = Math.floor(Math.random() * availableCells.length);
+                    const cellIndex = availableCells[randomIndex];
+                    if (!specialCells[cellIndex] && !hasTooManySpecialNeighbors(cellIndex, specialCells)) {
+                        specialCells[cellIndex] = CELL_TYPES.ARROW;
+                        arrowCells.push(cellIndex);
+                        availableCells.splice(randomIndex, 1);
+                    }
+                }
+                
+                // Add exactly 15 arrow-back cells
+                while (arrowBackCells.length < 15) {
+                    const randomIndex = Math.floor(Math.random() * availableCells.length);
+                    const cellIndex = availableCells[randomIndex];
+                    if (!specialCells[cellIndex] && !hasTooManySpecialNeighbors(cellIndex, specialCells)) {
+                        specialCells[cellIndex] = CELL_TYPES.ARROW_BACK;
+                        arrowBackCells.push(cellIndex);
+                        availableCells.splice(randomIndex, 1);
                     }
                 }
                 
